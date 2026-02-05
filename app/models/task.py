@@ -12,7 +12,9 @@ class Task(Base):
     description = Column(String, nullable=True)
     status = Column(String, default="pending")
     priority = Column(String, default="medium")
+
     owner_id = Column(String, ForeignKey("users.id"), nullable=False)
+    
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 

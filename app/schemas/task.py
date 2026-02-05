@@ -3,24 +3,38 @@ from typing import Optional
 from datetime import datetime
 
 
-# -----------------------------
-# Request schema (Create Task)
-# -----------------------------
-class TaskCreate(BaseModel):
+# =====================
+# Base schema
+# =====================
+class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
-    status: str = "pending"
-    priority: str = "medium"
+    completed: bool = False
 
 
-# -----------------------------
-# Response schema (Task Output)
-# -----------------------------
-class TaskOut(TaskCreate):
-    id: str
-    owner_id: str
+# =====================
+# Create task
+# =====================
+class TaskCreate(TaskBase):
+    pass
+
+
+# =====================
+# Update task (THIS FIXES YOUR ERROR)
+# =====================
+class TaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    completed: Optional[bool] = None
+
+
+# =====================
+# Response schema
+# =====================
+class TaskOut(TaskBase):
+    id: int
+    owner_id: int
     created_at: datetime
-    updated_at: datetime
 
     class Config:
-        from_attributes = True  # REQUIRED for SQLAlchemy ORM
+        from_attributes = True   # ✅ Pydantic v2

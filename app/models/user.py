@@ -11,8 +11,8 @@ class User(Base):
     email = Column(String, unique=True, nullable=False, index=True)
     hashed_password = Column(String, nullable=False)
 
-    # Role relationship
-    role_id = Column(String, ForeignKey("roles.id"), nullable=True)
+    # Role relationship (RBAC)
+    role_id = Column(String, ForeignKey("roles.id"), nullable=False)
     role = relationship("Role", back_populates="users")
 
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
